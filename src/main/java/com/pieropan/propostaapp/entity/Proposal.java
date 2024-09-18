@@ -8,87 +8,40 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.Cascade;
 
 @Entity
 @Table(name = "proposals")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Setter
+@Getter
 public class Proposal {
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-private Long id;
-
-private Double requestedAmount;
-
-private String paymentTerm;
-
-private Boolean isApproved;
-
-private boolean integrated;
-
-private String observation;
-
-@OneToOne
-@JoinColumn(name = "user_id")
-private User user;
 
 
-  public Proposal() {
-  }
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-  public Proposal(Double requestedAmount, String paymentTerm, Boolean isApproved, boolean integrated,
-      String observation) {
-    this.requestedAmount = requestedAmount;
-    this.paymentTerm = paymentTerm;
-    this.isApproved = isApproved;
-    this.integrated = integrated;
-    this.observation = observation;
-  }
+  private Double requestedAmount;
 
-  public Long getId() {
-    return id;
-  }
+  private int paymentTerm;
 
-  public void setId(Long id) {
-    this.id = id;
-  }
+  private Boolean isApproved;
 
-  public Double getRequestedAmount() {
-    return requestedAmount;
-  }
+  private boolean integrated;
 
-  public void setRequestedAmount(Double requestedAmount) {
-    this.requestedAmount = requestedAmount;
-  }
+  private String observation;
 
-  public String getPaymentTerm() {
-    return paymentTerm;
-  }
+  @OneToOne
+  @JoinColumn(name = "user_id")
+  private User user;
 
-  public void setPaymentTerm(String paymentTerm) {
-    this.paymentTerm = paymentTerm;
-  }
 
-  public Boolean getApproved() {
-    return isApproved;
-  }
-
-  public void setApproved(Boolean approved) {
-    isApproved = approved;
-  }
-
-  public boolean getIntegrated() {
-    return integrated;
-  }
-
-  public void setIntegrated(boolean integrated) {
-    this.integrated = integrated;
-  }
-
-  public String getObservation() {
-    return observation;
-  }
-
-  public void setObservation(String observation) {
-    this.observation = observation;
-  }
 }
