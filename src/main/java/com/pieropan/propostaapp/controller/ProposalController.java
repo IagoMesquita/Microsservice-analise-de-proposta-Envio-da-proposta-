@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @AllArgsConstructor
 @RestController
@@ -25,9 +26,15 @@ public class ProposalController {
 //  }
 
   @PostMapping
-  public ResponseEntity<ProposalResponseDto> create(@RequestBody ProposalRequestDto proposalRequestDto) {
+  public ResponseEntity<ProposalResponseDto> create(
+      @RequestBody ProposalRequestDto proposalRequestDto) {
     ProposalResponseDto response = proposalService.create(proposalRequestDto);
-    return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    return ResponseEntity.created(
+        ServletUriComponentsBuilder.fromCurrentRequest()
+            .path("/{id}")
+            .buildAndExpand(response.getId())
+            .toUri()
+    ).body(response);
   }
 
 }
