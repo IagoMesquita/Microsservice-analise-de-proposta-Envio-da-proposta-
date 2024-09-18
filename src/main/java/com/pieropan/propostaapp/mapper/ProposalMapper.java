@@ -3,6 +3,7 @@ package com.pieropan.propostaapp.mapper;
 import com.pieropan.propostaapp.dto.ProposalRequestDto;
 import com.pieropan.propostaapp.dto.ProposalResponseDto;
 import com.pieropan.propostaapp.entity.Proposal;
+import java.text.NumberFormat;
 import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -29,8 +30,13 @@ public interface ProposalMapper {
   @Mapping(source = "usuario.cpf", target = "cpf")
   @Mapping(source = "usuario.telefone", target = "telefone")
   @Mapping(source = "usuario.renda", target = "renda")
+  @Mapping(expression = "java(setValorSolicitadoFmt(proposal))", target = "valorSolicitadoFmt")
   ProposalResponseDto convertProposalToDto(Proposal proposal);
 
   //Poderia utilizar um map com convertProposalToDto no service ao inves dessa conversao mais essa conversao
   List<ProposalResponseDto> convertListEntityToListDto(Iterable<Proposal> proposals);
+
+  default String setValorSolicitadoFmt(Proposal proposal) {
+    return NumberFormat.getCurrencyInstance().format(proposal.getValorSolicitado());
+  }
 }
