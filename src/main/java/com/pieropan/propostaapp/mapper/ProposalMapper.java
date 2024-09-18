@@ -3,6 +3,7 @@ package com.pieropan.propostaapp.mapper;
 import com.pieropan.propostaapp.dto.ProposalRequestDto;
 import com.pieropan.propostaapp.dto.ProposalResponseDto;
 import com.pieropan.propostaapp.entity.Proposal;
+import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
@@ -30,5 +31,6 @@ public interface ProposalMapper {
   @Mapping(source = "user.income", target = "income")
   ProposalResponseDto convertProposalToDto(Proposal proposal);
 
-
+  //Poderia utilizar um map com convertProposalToDto no service ao inves dessa conversao mais essa conversao
+  List<ProposalResponseDto> convertListEntityToListDto(Iterable<Proposal> proposals);
 }
