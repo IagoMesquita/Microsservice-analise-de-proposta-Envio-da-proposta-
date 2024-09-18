@@ -13,16 +13,16 @@ import lombok.Setter;
 public class ProposalResponseDto {
 
   private Long id;
-  private String name;
-  private String lastName;
-  private String phoneNumber;
+  private String nome;
+  private String sobrenome;
+  private String telefone;
   private String cpf;
-  private Double income;
+  private Double renda;
 
-  private Double requestedAmount;
-  private int paymentTerm;
-  private Boolean isApproved;
-  private String observation;
+  private Double valorSolicitado;
+  private int prazoPagamento;
+  private Boolean aprovada;
+  private String observacao;
 
 
 }

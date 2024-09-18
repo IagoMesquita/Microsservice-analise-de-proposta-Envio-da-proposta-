@@ -13,22 +13,22 @@ public interface ProposalMapper {
 
   ProposalMapper INSTANCE = Mappers.getMapper(ProposalMapper.class);
 
-  @Mapping( source = "name", target = "user.name")
-  @Mapping( source = "lastName", target = "user.lastName")
-  @Mapping( source = "cpf", target = "user.cpf")
-  @Mapping( source = "phoneNumber", target = "user.phoneNumber")
-  @Mapping( source = "income", target = "user.income")
+  @Mapping( source = "nome", target = "usuario.nome")
+  @Mapping( source = "sobrenome", target = "usuario.sobrenome")
+  @Mapping( source = "cpf", target = "usuario.cpf")
+  @Mapping( source = "telefone", target = "usuario.telefone")
+  @Mapping( source = "renda", target = "usuario.renda")
   @Mapping(target = "id", ignore = true)
-  @Mapping(target = "isApproved", ignore = true)
-  @Mapping(target = "integrated", ignore = true)
-  @Mapping(target = "observation", ignore = true)
+  @Mapping(target = "aprovada", ignore = true)
+  @Mapping(target = "integrada", ignore = true)
+  @Mapping(target = "observacao", ignore = true)
   Proposal convertDtoToProposal(ProposalRequestDto proposalRequestDto);
 
-  @Mapping(source = "user.name", target = "name")
-  @Mapping(source = "user.lastName", target = "lastName")
-  @Mapping(source = "user.cpf", target = "cpf")
-  @Mapping(source = "user.phoneNumber", target = "phoneNumber")
-  @Mapping(source = "user.income", target = "income")
+  @Mapping(source = "usuario.nome", target = "nome")
+  @Mapping(source = "usuario.sobrenome", target = "sobrenome")
+  @Mapping(source = "usuario.cpf", target = "cpf")
+  @Mapping(source = "usuario.telefone", target = "telefone")
+  @Mapping(source = "usuario.renda", target = "renda")
   ProposalResponseDto convertProposalToDto(Proposal proposal);
 
   //Poderia utilizar um map com convertProposalToDto no service ao inves dessa conversao mais essa conversao

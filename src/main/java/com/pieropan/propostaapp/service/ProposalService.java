@@ -7,8 +7,6 @@ import com.pieropan.propostaapp.mapper.ProposalMapper;
 import com.pieropan.propostaapp.repository.ProposalRepository;
 import java.util.List;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @AllArgsConstructor

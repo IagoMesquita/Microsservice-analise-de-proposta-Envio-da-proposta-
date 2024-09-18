@@ -24,13 +24,13 @@ public class User {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  private String name;
-  private String lastName;
+  private String nome;
+  private String sobrenome;
   private String cpf;
-  private String phoneNumber;
-  private Double income;
+  private String telefone;
+  private Double renda;
 
-  @OneToOne(mappedBy = "user")
-  private Proposal proposal;
+  @OneToOne(mappedBy = "usuario")
+  private Proposal proposta;
 
 }

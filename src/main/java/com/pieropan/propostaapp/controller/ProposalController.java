@@ -17,7 +17,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/proposal")
+@RequestMapping("/proposta")
 public class ProposalController {
 
   private final ProposalService proposalService;

@@ -29,19 +29,19 @@ public class Proposal {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  private Double requestedAmount;
+  private Double valorSolicitado;
 
-  private int paymentTerm;
+  private int prazoPagamento;
 
-  private Boolean isApproved;
+  private Boolean aprovada;
 
-  private boolean integrated;
+  private boolean integrada;
 
-  private String observation;
+  private String observacao;
 
   @OneToOne(cascade = CascadeType.PERSIST)
   @JoinColumn(name = "user_id")
-  private User user;
+  private User usuario;
 
 
 }
