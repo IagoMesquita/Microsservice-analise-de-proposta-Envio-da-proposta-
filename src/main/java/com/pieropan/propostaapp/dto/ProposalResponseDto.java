@@ -18,11 +18,10 @@ public class ProposalResponseDto {
   private String phoneNumber;
   private String cpf;
   private Double income;
+
   private Double requestedAmount;
   private int paymentTerm;
-
   private Boolean isApproved;
-
   private String observation;
 
 
