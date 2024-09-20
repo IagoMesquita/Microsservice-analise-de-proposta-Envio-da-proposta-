@@ -8,6 +8,9 @@ import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.core.QueueBuilder;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
+import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
@@ -36,7 +39,7 @@ public class RabbitMQConfiguration {
     return QueueBuilder.durable("proposta-concluida.ms-notificacao").build();
   }
 
-  // Admin Filas, Exchanges
+  // Admin de Filas e Exchanges
   @Bean
   public RabbitAdmin createRabbitAdmin(ConnectionFactory connectionFactory) {
     return new RabbitAdmin(connectionFactory);
@@ -64,7 +67,25 @@ public class RabbitMQConfiguration {
     return BindingBuilder.bind(createQueuePropostaPendenteMsNotificacao()).
         to(createFanoutExchangePropostaPendente());
   }
+
+//  Configurando para o RabbitTamplate aceitar um objeto JSON
+
+  @Bean
+  public MessageConverter jackson2JsonMessageConverter( ) {
+    return new Jackson2JsonMessageConverter();
+  }
+
+  @Bean
+  public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
+    RabbitTemplate rabbitTemplate = new RabbitTemplate();
+    rabbitTemplate.setConnectionFactory(connectionFactory);
+    rabbitTemplate.setMessageConverter(jackson2JsonMessageConverter());
+
+    return rabbitTemplate;
+  }
+
 }
+
 
 //Explicando os metodos com chatGPT:
 //https://chatgpt.com/share/66edd819-2098-800a-b73d-3328edac4d1a
