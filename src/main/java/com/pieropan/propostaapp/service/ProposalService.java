@@ -14,6 +14,9 @@ import org.springframework.stereotype.Service;
 public class ProposalService {
 
   private ProposalRepository proposalRepository;
+  private NotificationService notificationService;
+
+
 
 //  @Autowired
 //  public ProposalService(ProposalRepository proposalRepository) {
@@ -21,9 +24,12 @@ public class ProposalService {
 //  }
   public ProposalResponseDto create(ProposalRequestDto proposalRequestDto) {
     Proposal proposal = ProposalMapper.INSTANCE.convertDtoToProposal(proposalRequestDto);
-    Proposal proposalSaved = proposalRepository.save(proposal);
+    proposalRepository.save(proposal);
 
-    return ProposalMapper.INSTANCE.convertProposalToDto(proposalSaved);
+    ProposalResponseDto responseDto = ProposalMapper.INSTANCE.convertProposalToDto(proposal);
+    notificationService.notify(responseDto, "proposta-pendente.ex");
+
+    return responseDto;
   }
 
   public List<ProposalResponseDto> getAll() {
