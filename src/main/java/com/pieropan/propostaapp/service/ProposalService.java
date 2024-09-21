@@ -1,5 +1,6 @@
 package com.pieropan.propostaapp.service;
 
+import com.fasterxml.jackson.databind.annotation.JsonAppend.Prop;
 import com.pieropan.propostaapp.dto.ProposalRequestDto;
 import com.pieropan.propostaapp.dto.ProposalResponseDto;
 import com.pieropan.propostaapp.entity.Proposal;
@@ -31,14 +32,26 @@ public class ProposalService {
 //    this.proposalRepository = proposalRepository;
 //  }
   public ProposalResponseDto create(ProposalRequestDto proposalRequestDto) {
-    Proposal proposal = ProposalMapper.INSTANCE.convertDtoToProposal(proposalRequestDto);
-    proposalRepository.save(proposal);
+    Proposal proposalDb = ProposalMapper.INSTANCE.convertDtoToProposal(proposalRequestDto);
+    proposalRepository.save(proposalDb);
 
-    ProposalResponseDto responseDto = ProposalMapper.INSTANCE.convertProposalToDto(proposal);
-    notificationService.notify(responseDto, exchangePendingProprosal);
 
-    return responseDto;
+    notifyRabbitMQ(proposalDb);
+
+    return ProposalMapper.INSTANCE.convertProposalToDto(proposalDb);
   }
+
+  // Metodo pensado para Resiliencia no servico com RabbitMQ. Caso a conexao falhe a propriedade Integration que foi pensada para isso, sera alterada e posteriormente esses registros serao trabalhados apra irem para as filas
+  private void notifyRabbitMQ(Proposal proposal) {
+    try {
+      notificationService.notify(proposal, exchangePendingProprosal);
+
+    } catch (RuntimeException exception) {
+      proposal.setIntegrada(false);
+      proposalRepository.save(proposal);
+    }
+  }
+
 
   public List<ProposalResponseDto> getAll() {
     return ProposalMapper.INSTANCE.convertListEntityToListDto(
