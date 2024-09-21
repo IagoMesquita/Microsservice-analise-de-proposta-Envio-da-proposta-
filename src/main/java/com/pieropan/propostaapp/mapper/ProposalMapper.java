@@ -21,7 +21,7 @@ public interface ProposalMapper {
   @Mapping( source = "renda", target = "usuario.renda")
   @Mapping(target = "id", ignore = true)
   @Mapping(target = "aprovada", ignore = true)
-  @Mapping(target = "integrada", ignore = true)
+  @Mapping(target = "integrada", constant = "true")
   @Mapping(target = "observacao", ignore = true)
   Proposal convertDtoToProposal(ProposalRequestDto proposalRequestDto);
 
