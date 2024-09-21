@@ -1,6 +1,5 @@
 package com.pieropan.propostaapp.service;
 
-import com.fasterxml.jackson.databind.annotation.JsonAppend.Prop;
 import com.pieropan.propostaapp.dto.ProposalRequestDto;
 import com.pieropan.propostaapp.dto.ProposalResponseDto;
 import com.pieropan.propostaapp.entity.Proposal;
@@ -14,16 +13,17 @@ import org.springframework.stereotype.Service;
 public class ProposalService {
 
   private final ProposalRepository proposalRepository;
-  private final NotificationService notificationService;
-  private final String exchangePendingProprosal;
+  private final NotificationRabbitMQService notificationRabbitMQService;
+  private final String exchangePendingProposal;
 
   public ProposalService(
       ProposalRepository proposalRepository,
-      NotificationService notificationService,
-      @Value("${rabbitmq.pending-proposal.exchange}") String exchangePendingProprosal) {
+      NotificationRabbitMQService notificationRabbitMQService,
+      @Value("${rabbitmq.pending-proposal.exchange}") String exchangePendingProposal
+     ) {
     this.proposalRepository = proposalRepository;
-    this.notificationService = notificationService;
-    this.exchangePendingProprosal = exchangePendingProprosal;
+    this.notificationRabbitMQService = notificationRabbitMQService;
+    this.exchangePendingProposal = exchangePendingProposal;
   }
 
 
@@ -44,7 +44,7 @@ public class ProposalService {
   // Metodo pensado para Resiliencia no servico com RabbitMQ. Caso a conexao falhe a propriedade Integration que foi pensada para isso, sera alterada e posteriormente esses registros serao trabalhados apra irem para as filas
   private void notifyRabbitMQ(Proposal proposal) {
     try {
-      notificationService.notify(proposal, exchangePendingProprosal);
+      notificationRabbitMQService.notify(proposal, exchangePendingProposal);
 
     } catch (RuntimeException exception) {
       proposal.setIntegrada(false);
