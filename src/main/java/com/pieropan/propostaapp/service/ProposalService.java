@@ -6,19 +6,27 @@ import com.pieropan.propostaapp.entity.Proposal;
 import com.pieropan.propostaapp.mapper.ProposalMapper;
 import com.pieropan.propostaapp.repository.ProposalRepository;
 import java.util.List;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-@AllArgsConstructor
 @Service
 public class ProposalService {
 
-  private ProposalRepository proposalRepository;
-  private NotificationService notificationService;
+  private final ProposalRepository proposalRepository;
+  private final NotificationService notificationService;
+  private final String exchangePendingProprosal;
+
+  public ProposalService(
+      ProposalRepository proposalRepository,
+      NotificationService notificationService,
+      @Value("${rabbitmq.pending-proposal.exchange}") String exchangePendingProprosal) {
+    this.proposalRepository = proposalRepository;
+    this.notificationService = notificationService;
+    this.exchangePendingProprosal = exchangePendingProprosal;
+  }
 
 
-
-//  @Autowired
+  //  @Autowired
 //  public ProposalService(ProposalRepository proposalRepository) {
 //    this.proposalRepository = proposalRepository;
 //  }
@@ -27,7 +35,7 @@ public class ProposalService {
     proposalRepository.save(proposal);
 
     ProposalResponseDto responseDto = ProposalMapper.INSTANCE.convertProposalToDto(proposal);
-    notificationService.notify(responseDto, "proposta-pendente.ex");
+    notificationService.notify(responseDto, exchangePendingProprosal);
 
     return responseDto;
   }
