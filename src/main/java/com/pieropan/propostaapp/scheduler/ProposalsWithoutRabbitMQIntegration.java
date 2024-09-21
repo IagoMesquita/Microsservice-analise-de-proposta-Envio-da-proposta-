@@ -2,9 +2,11 @@ package com.pieropan.propostaapp.scheduler;
 
 import com.pieropan.propostaapp.repository.ProposalRepository;
 import com.pieropan.propostaapp.service.NotificationRabbitMQService;
+import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -27,6 +29,7 @@ public class ProposalsWithoutRabbitMQIntegration {
     this.exchangePendingProposal = exchangePendingProposal;
   }
 
+  @Scheduled(fixedDelay = 10, timeUnit = TimeUnit.SECONDS)
   public void searchProposalsWithoutIntegrationRabbitMQ() {
     proposalRepository.findAllByIntegradaIsFalse().forEach(proposal -> {
       try {
