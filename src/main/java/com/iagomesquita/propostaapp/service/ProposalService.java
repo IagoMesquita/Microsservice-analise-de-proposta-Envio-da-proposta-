@@ -1,10 +1,10 @@
-package com.pieropan.propostaapp.service;
+package com.iagomesquita.propostaapp.service;
 
-import com.pieropan.propostaapp.dto.ProposalRequestDto;
-import com.pieropan.propostaapp.dto.ProposalResponseDto;
-import com.pieropan.propostaapp.entity.Proposal;
-import com.pieropan.propostaapp.mapper.ProposalMapper;
-import com.pieropan.propostaapp.repository.ProposalRepository;
+import com.iagomesquita.propostaapp.dto.ProposalRequestDto;
+import com.iagomesquita.propostaapp.dto.ProposalResponseDto;
+import com.iagomesquita.propostaapp.entity.Proposal;
+import com.iagomesquita.propostaapp.mapper.ProposalMapper;
+import com.iagomesquita.propostaapp.repository.ProposalRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

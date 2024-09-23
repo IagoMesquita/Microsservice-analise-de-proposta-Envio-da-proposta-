@@ -1,6 +1,6 @@
-package com.pieropan.propostaapp.repository;
+package com.iagomesquita.propostaapp.repository;
 
-import com.pieropan.propostaapp.entity.Proposal;
+import com.iagomesquita.propostaapp.entity.Proposal;
 import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 

@@ -1,12 +1,10 @@
-package com.pieropan.propostaapp.controller;
+package com.iagomesquita.propostaapp.controller;
 
-import com.pieropan.propostaapp.dto.ProposalRequestDto;
-import com.pieropan.propostaapp.dto.ProposalResponseDto;
-import com.pieropan.propostaapp.service.ProposalService;
+import com.iagomesquita.propostaapp.dto.ProposalRequestDto;
+import com.iagomesquita.propostaapp.dto.ProposalResponseDto;
+import com.iagomesquita.propostaapp.service.ProposalService;
 import java.util.List;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

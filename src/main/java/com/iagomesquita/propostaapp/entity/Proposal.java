@@ -1,4 +1,4 @@
-package com.pieropan.propostaapp.entity;
+package com.iagomesquita.propostaapp.entity;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -41,7 +41,11 @@ public class Proposal {
 
   @OneToOne(cascade = CascadeType.PERSIST)
   @JoinColumn(name = "user_id")
+//  @JsonManagedReference *
   private User usuario;
 
 
 }
+
+
+// * Descomentar Caso d^e erro ciclico por conta da serializacao do metodo babbitTemplata em RabbitMQConfig

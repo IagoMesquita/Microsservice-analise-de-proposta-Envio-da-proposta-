@@ -1,28 +1,23 @@
-package com.pieropan.propostaapp.dto;
+package com.iagomesquita.propostaapp.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Setter
 @Getter
-public class ProposalResponseDto {
+public class ProposalRequestDto {
 
-  private Long id;
   private String nome;
   private String sobrenome;
-  private String telefone;
+  private  String telefone;
   private String cpf;
   private Double renda;
-
-  private String valorSolicitadoFmt;
+  private Double valorSolicitado;
   private int prazoPagamento;
-  private Boolean aprovada;
-  private String observacao;
 
 
 }

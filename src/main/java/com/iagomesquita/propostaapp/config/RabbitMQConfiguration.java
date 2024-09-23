@@ -1,4 +1,4 @@
-package com.pieropan.propostaapp.config;
+package com.iagomesquita.propostaapp.config;
 
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;

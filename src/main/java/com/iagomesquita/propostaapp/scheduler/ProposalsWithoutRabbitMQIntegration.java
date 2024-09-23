@@ -1,7 +1,7 @@
-package com.pieropan.propostaapp.scheduler;
+package com.iagomesquita.propostaapp.scheduler;
 
-import com.pieropan.propostaapp.repository.ProposalRepository;
-import com.pieropan.propostaapp.service.NotificationRabbitMQService;
+import com.iagomesquita.propostaapp.repository.ProposalRepository;
+import com.iagomesquita.propostaapp.service.NotificationRabbitMQService;
 import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

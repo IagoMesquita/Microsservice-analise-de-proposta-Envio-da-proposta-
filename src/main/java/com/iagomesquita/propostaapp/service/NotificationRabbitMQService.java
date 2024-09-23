@@ -1,6 +1,6 @@
-package com.pieropan.propostaapp.service;
+package com.iagomesquita.propostaapp.service;
 
-import com.pieropan.propostaapp.entity.Proposal;
+import com.iagomesquita.propostaapp.entity.Proposal;
 import lombok.AllArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;

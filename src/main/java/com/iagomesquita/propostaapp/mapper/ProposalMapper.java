@@ -1,8 +1,8 @@
-package com.pieropan.propostaapp.mapper;
+package com.iagomesquita.propostaapp.mapper;
 
-import com.pieropan.propostaapp.dto.ProposalRequestDto;
-import com.pieropan.propostaapp.dto.ProposalResponseDto;
-import com.pieropan.propostaapp.entity.Proposal;
+import com.iagomesquita.propostaapp.dto.ProposalRequestDto;
+import com.iagomesquita.propostaapp.dto.ProposalResponseDto;
+import com.iagomesquita.propostaapp.entity.Proposal;
 import java.text.NumberFormat;
 import java.util.List;
 import org.mapstruct.Mapper;

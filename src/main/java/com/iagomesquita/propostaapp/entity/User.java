@@ -1,4 +1,4 @@
-package com.pieropan.propostaapp.entity;
+package com.iagomesquita.propostaapp.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,6 +31,10 @@ public class User {
   private Double renda;
 
   @OneToOne(mappedBy = "usuario")
+//  @JsonBackReference *
   private Proposal proposta;
 
 }
+
+
+// * Descomentar Caso d^e erro ciclico por conta da serializacao do metodo babbitTemplata em RabbitMQConfig
