@@ -21,7 +21,10 @@ import org.springframework.context.annotation.Configuration;
 public class RabbitMQConfiguration {
 
   @Value("${rabbitmq.pending-proposal.exchange}")
-  private String exchangePendingProprosal;
+  private String exchangePendingProposal;
+
+  @Value("${rabbitmq.completed-proposal.exchange}")
+  private String exchangeCompletedProposal;
 
   // Filas
   @Bean
@@ -58,7 +61,7 @@ public class RabbitMQConfiguration {
   // Exchange Proposta e Binds para Queue de proposta-pendente e notificacao
   @Bean
   public FanoutExchange createFanoutExchangePropostaPendente() {
-    return ExchangeBuilder.fanoutExchange(exchangePendingProprosal).build();
+    return ExchangeBuilder.fanoutExchange(exchangePendingProposal).build();
   }
 
   @Bean
@@ -72,6 +75,24 @@ public class RabbitMQConfiguration {
     return BindingBuilder.bind(createQueuePropostaPendenteMsNotificacao()).
         to(createFanoutExchangePropostaPendente());
   }
+
+  @Bean
+  public FanoutExchange createFanoutExchangePropostaConcluida() {
+    return ExchangeBuilder.fanoutExchange(exchangeCompletedProposal).build();
+  }
+
+  @Bean
+  public Binding createBindingPropostaConcluidaMSProposta() {
+    return BindingBuilder.bind(createQueuePropostaConcluidaMsProposta())
+        .to(createFanoutExchangePropostaConcluida());
+  }
+
+  @Bean
+  public Binding createBidingPropostaConcluidaMSNotificacao() {
+    return BindingBuilder.bind(createQueuePropostaConcluidaMsNotificacao())
+        .to(createFanoutExchangePropostaConcluida());
+  }
+
 
 //  Configurando para o RabbitTamplate aceitar um objeto JSON
 
