@@ -7,7 +7,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class WebSocketService {
 
-  private SimpMessagingTemplate template;
+  private final SimpMessagingTemplate template;
+
+  public WebSocketService(SimpMessagingTemplate template) {
+    this.template = template;
+  }
 
   public void  notify(ProposalResponseDto proposal) {
     template.convertAndSend("/propostas", proposal);
