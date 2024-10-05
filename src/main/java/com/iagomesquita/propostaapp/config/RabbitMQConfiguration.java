@@ -44,13 +44,19 @@ public class RabbitMQConfiguration {
 
   @Bean
   public Queue createQueuePropostaConcluidaMsProposta() {
-    return QueueBuilder.durable("proposta-concluida.ms-proposta").build();
+    return QueueBuilder.durable("proposta-concluida.ms-proposta")
+//        .maxLength(2)
+//        .withArgument("x-dead-letter-exchange", "")
+//        .withArgument("x-message-ttl", 1000)
+//        .withArgument("x-dead-letter-routing-key", "proposta.concluida-dlq")
+        .build();
   }
 
   @Bean
   public Queue createQueuePropostaConcluidaMsNotificacao() {
     return QueueBuilder.durable("proposta-concluida.ms-notificacao").build();
   }
+
 
   // Fila DLQ
   @Bean
