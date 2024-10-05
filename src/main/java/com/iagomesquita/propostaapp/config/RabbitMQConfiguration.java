@@ -26,10 +26,15 @@ public class RabbitMQConfiguration {
   @Value("${rabbitmq.completed-proposal.exchange}")
   private String exchangeCompletedProposal;
 
+  @Value("${rabbitmq.pending-proposal-dlx.exchange}")
+  private String exchangePendingProposalDlx;
+
   // Filas
   @Bean
   public Queue createQueuePropostaPendenteMsAnaliseCredito() {
-    return QueueBuilder.durable("proposta-pendente.ms-analise-credito").build();
+    return QueueBuilder
+        .durable("proposta-pendente.ms-analise-credito")
+        .deadLetterExchange(exchangePendingProposalDlx).build();
   }
 
   @Bean
@@ -102,10 +107,12 @@ public class RabbitMQConfiguration {
 
   // Exchange  e Bind Queue DLQ
 
+  @Bean
   public FanoutExchange deadLetterExchange() {
-    return ExchangeBuilder.fanoutExchange("proposta-pendente-dlx-ex").build();
+    return ExchangeBuilder.fanoutExchange(exchangePendingProposalDlx).build();
   }
 
+  @Bean
   public Binding createBindingDlq() {
     return BindingBuilder.bind(createQueuePropostaPendenteDlq())
         .to(deadLetterExchange());
