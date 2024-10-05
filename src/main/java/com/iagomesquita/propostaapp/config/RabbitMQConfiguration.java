@@ -47,6 +47,12 @@ public class RabbitMQConfiguration {
     return QueueBuilder.durable("proposta-concluida.ms-notificacao").build();
   }
 
+  // Fila DLQ
+  @Bean
+  public  Queue createQueuePropostaPendenteDlq() {
+    return QueueBuilder.durable("proposta-pendente.dlq").build();
+  }
+
   // Admin de Filas e Exchanges
   @Bean
   public RabbitAdmin createRabbitAdmin(ConnectionFactory connectionFactory) {
@@ -93,6 +99,17 @@ public class RabbitMQConfiguration {
         .to(createFanoutExchangePropostaConcluida());
   }
 
+
+  // Exchange  e Bind Queue DLQ
+
+  public FanoutExchange deadLetterExchange() {
+    return ExchangeBuilder.fanoutExchange("proposta-pendente-dlx-ex").build();
+  }
+
+  public Binding createBindingDlq() {
+    return BindingBuilder.bind(createQueuePropostaPendenteDlq())
+        .to(deadLetterExchange());
+  }
 
 //  Configurando para o RabbitTamplate aceitar um objeto JSON
 
